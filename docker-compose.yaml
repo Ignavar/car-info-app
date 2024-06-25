@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  backend:
+    image: car-info/backend
+    ports:
+      - "5000:5000"
+    environment:
+      - "DB_HOST=mysql"
+      - "DB_PORT=3306"
+      - "DB_USER=root"
+      - "DB_PASSWORD=Haroon@2003" # Added password environment variable
+      - "DB_DATABASE=Car_Info" # Ensure database name is also set
+    networks:
+      - mynetwork
+
+  frontend:
+    image: car-info/frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    environment:
+      - REACT_APP_API_URL=http://192.168.100.225:5000
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Haroon@2003
+      MYSQL_DATABASE: Car_Info
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db_backup:/docker-entrypoint-initdb.d
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  mysql-data:

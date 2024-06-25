@@ -1,0 +1,7 @@
+# Ignore common files for React projects
+# Node.js modules
+node_modules/
+
+# React build output
+build/
+*.log

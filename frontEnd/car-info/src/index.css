@@ -1,0 +1,14 @@
+  @keyframes rotateHorizontal {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+.animate-spin-slow {
+    animation: rotateHorizontal 7s linear infinite;
+  }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
