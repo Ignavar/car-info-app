@@ -4,7 +4,7 @@ admin account can add new brands, models and information related to them
 
 # getting-started 
 adjust REACT_APP_API_URL value in docker compose.yaml to the ip address of your machine you can 
-find that in linux by running hostname -I and using ipconfig on windows you will require docker 
+find that in linux by running hostname -I and on windows byusing ipconfig you will require docker 
 and docker compose to run this app. cd into the frontend directory and run docker build -t 3000:3000 car-info/frontend .
 then cd into the backend directory and run docker build -t 5000:5000 car-info/backend .
 finally cd into root directory and run docker compose up to start the app you can access in through 
