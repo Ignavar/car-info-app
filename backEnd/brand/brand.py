@@ -20,7 +20,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@brand.route("/addBrand", methods=["POST"])
+@brand.route("/addBrand", methods=["PUT"])
 @cross_origin(allow_headers=["Content-Type"])
 def add_brand():
     if "modelLogo" not in request.files:

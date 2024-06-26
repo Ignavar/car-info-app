@@ -67,7 +67,7 @@ const AddCarModel = () => {
     formData.append("modelEngineSize", engineSize);
 
     const response = await fetch(`${config.apiUrl}/model/addModel`, {
-      method: "POST",
+      method: "PUT",
       body: formData,
     });
     if (!response.ok) {

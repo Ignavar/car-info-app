@@ -34,7 +34,7 @@ const AddModelForm = () => {
     formData.append("modelLogo", modelLogo);
 
     const response = await fetch(`${config.apiUrl}/brand/addBrand`, {
-      method: "POST",
+      method: "PUT",
       body: formData,
     });
     if (!response.ok) {

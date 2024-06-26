@@ -33,7 +33,7 @@ const AddMods = () => {
     formData.append("modPrice", modPrice);
     formData.append("carId", carId.current);
     const response = await fetch(`${config.apiUrl}/car/addMod`, {
-      method: "POST",
+      method: "PUT",
       body: formData,
     });
     if (!response.ok) {

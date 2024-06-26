@@ -60,7 +60,7 @@ def list_cars():
         close_db(connection)
 
 
-@car.route("/addMod", methods=["POST"])
+@car.route("/addMod", methods=["PUT"])
 @cross_origin(allow_headers=["Content-Type"])
 def add_mod():
     name = request.form.get("modName")
