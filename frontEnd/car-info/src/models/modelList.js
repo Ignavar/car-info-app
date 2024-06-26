@@ -1,4 +1,10 @@
-import React, { useRef, useState, useContext } from "react";
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 import { useLocation, Link } from "react-router-dom";
 import FeedbackForm from "../feedback/feedback.js";
 import FeedbackDisplay from "../feedback/listFeedback.js";
@@ -37,7 +43,34 @@ export default function ModelList() {
   });
 
   const models = modelData?.modelList || [];
-  const feedback = feedbackData || [];
+  const feedback = useMemo(() => feedbackData || [], [feedbackData]);
+
+  const deleteFeedback = useCallback(
+    async (index) => {
+      try {
+        const response = await fetch(
+          `${config.apiUrl}/feedback/deleteFeedback`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              brandId: feedback[index].feedbackId,
+            }),
+          },
+        );
+        if (!response.ok) {
+          const message = await response.json();
+          throw new Error(JSON.stringify(message.message));
+        }
+        refetchFeedback();
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+    [feedback, refetchFeedback],
+  );
 
   const handleFeedbackSubmit = () => {
     refetchFeedback();
@@ -102,6 +135,7 @@ export default function ModelList() {
                 <FeedbackDisplay
                   text={feedbackItem.description}
                   name={feedbackItem.name}
+                  deleteFeedback={() => deleteFeedback(index)}
                 />
                 <hr className="my-4 border-t-2 border-black" />
               </li>

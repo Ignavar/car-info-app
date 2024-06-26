@@ -68,9 +68,9 @@ def list_feedback():
         cursor = connection.cursor(dictionary=True)
         query = ""
         if feedback_type == "brand":
-            query = """SELECT name, description FROM Feedback WHERE modelId IS NULL AND brandId = %s"""
+            query = """SELECT feedbackId, name, description FROM Feedback WHERE modelId IS NULL AND brandId = %s"""
         else:
-            query = """SELECT name, description FROM Feedback WHERE brandId IS NULL AND modelId = %s"""
+            query = """SELECT feedbackId, name, description FROM Feedback WHERE brandId IS NULL AND modelId = %s"""
         cursor.execute(query, (key,))
         feedback = cursor.fetchall()
 
@@ -81,4 +81,31 @@ def list_feedback():
     finally:
         if "cursor" in locals():
             cursor.close()
+        close_db(connection)
+
+
+@feedback.route("/deleteFeedback", methods=["DELETE"])
+@cross_origin(allow_headers=["Content-Type", "Authorization"])
+def delete_feedback():
+    data = request.get_json()
+    feedback_id = data.get("brandId")
+
+    connection = getdb()
+    cursor = connection.cursor()
+
+    try:
+        # Check if feedback already exists for given userId, modelId or brandId
+        cursor.execute(
+            "DELETE FROM Feedback where feedbackId = %s",
+            (feedback_id,),
+        )
+        connection.commit()
+
+        return jsonify({"message": "Feedback delted successfully"}), 201
+
+    except Exception as e:
+        return jsonify({"message": "Failed to delete feedback: " + str(e)}), 500
+
+    finally:
+        cursor.close()
         close_db(connection)
