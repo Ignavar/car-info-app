@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_cors import cross_origin
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from mysql.connector import cursor
 
 from db.connect import getdb
 from db.disconnect import close_db
@@ -9,7 +8,7 @@ from db.disconnect import close_db
 feedback = Blueprint("feedback", __name__, url_prefix="/feedback")
 
 
-@feedback.route("/add", methods=["POST"])
+@feedback.route("/add", methods=["PUT"])
 @cross_origin(allow_headers=["Content-Type", "Authorization"])
 @jwt_required()
 def add_feedback():

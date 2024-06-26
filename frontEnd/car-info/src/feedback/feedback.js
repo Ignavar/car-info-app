@@ -32,7 +32,7 @@ const FeedbackForm = ({ option, id, onSubmit }) => {
       }
 
       const response = await fetch(`${config.apiUrl}/feedback/add`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
