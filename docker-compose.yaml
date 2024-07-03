@@ -21,7 +21,7 @@ services:
     networks:
       - mynetwork
     environment:
-      - REACT_APP_API_URL=http://192.168.100.225:5000
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
 
   mysql:
     image: mysql:8.0
