@@ -1,0 +1,14 @@
+{
+  "name": "Car Info App",
+  "short_name": "CFA",
+  "start_url": "/",
+  "description": "Car Info App to get information on cars",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
